@@ -1,0 +1,9 @@
+
+Código: 43
+Descripción:Pistola
+Peso: 23.0
+
+Código: 78
+Descripción:Metralleta
+Peso: 2.0
+
