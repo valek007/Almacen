@@ -22,19 +22,21 @@ public class Almacen {
 
     public static final  String INTROMENU =
             "\n-------Menu----------------------\n"+
-            "1. Introducir los productos\n"+
-            "2. Visualizarlos en pantalla\n"+
-            "3. Guardar archivo de texto\n"+
-            "4. Leer archivo\n"+
-            "5. Salir\n"+
+            "| 1. Introducir los productos    |\n"+
+            "| 2. Visualizarlos en pantalla   |\n"+
+            "| 3. Guardar archivo de texto    |\n"+
+            "| 4. Leer archivo                |\n"+
+            "| 5. Salir                       |\n"+
             "----------------------------------\n";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         try {
             menu();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (NullPointerException j){
+            System.out.println("No has introducido el producto, prueba de nuevo.");
         }
     }
 
@@ -104,7 +106,7 @@ public class Almacen {
             int cod = producto.getCodigo();
 
             if(cod!=0){
-                System.out.println("Código: "+producto.getCodigo()+"\nDescripción: "+producto.getDecripcion()+"\nPeso: "+producto.getPeso()+"\n");
+                System.out.println("Código: "+producto.getCodigo()+"\nDescripción: "+producto.getDecripcion()+"\nPeso: "+producto.getPeso()+"kg\n");
             }else{
                 System.out.println("El producto no existe.");
             }
@@ -112,11 +114,18 @@ public class Almacen {
     }
     private static void guardaProds(){
 
+        int cod = producto.getCodigo();
+
         try(BufferedWriter writer = new BufferedWriter(new FileWriter("archivador.txt",true))){
-            writer.write("Código: "+producto.getCodigo()+"\n");
-            writer.write("Descripción:"+producto.getDecripcion()+"\n");
-            writer.write("Peso: "+producto.getPeso()+"kg\n");
-            writer.write("\n");
+
+            if(cod!=0) {
+                writer.write("Código: " + producto.getCodigo() + "\n");
+                writer.write("Descripción: " + producto.getDecripcion() + "\n");
+                writer.write("Peso: " + producto.getPeso() + "kg\n");
+                writer.write("\n");
+            }else{
+                System.out.println("No hay nada por introducir");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -142,3 +151,4 @@ public class Almacen {
         }
     }
 }
+
