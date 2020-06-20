@@ -147,7 +147,7 @@ public class Almacen {
                 }
             }
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("Primero deberias introducir los datos y guardar.");
         }
     }
 }
