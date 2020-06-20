@@ -1,9 +1,21 @@
 
 Código: 43
-Descripción:Pistola
+Descripción: Jamon
 Peso: 23.0
 
 Código: 78
-Descripción:Metralleta
+Descripción: Solomillo
 Peso: 2.0
+
+Código: 501
+Descripción: Pistola Laser
+Peso: 5.0kg
+
+Código: 709
+Descripción: Altavoz Stereo
+Peso: 4.0kg
+
+Código: 1023
+Descripción: Paraguas
+Peso: 23.0kg
 

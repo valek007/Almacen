@@ -29,7 +29,7 @@ public class Almacen {
             "| 5. Salir                       |\n"+
             "----------------------------------\n";
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException { //Punto 4:
 
         try {
             menu();
@@ -40,7 +40,7 @@ public class Almacen {
         }
     }
 
-    private static void menu() throws IOException {
+    private static void menu() throws IOException { //Punto 2:
 
         System.out.println(INTROMENU);
         boolean isStoped = false;
@@ -84,7 +84,7 @@ public class Almacen {
         }
     }
 
-    private static void introducirProds(BufferedReader reader) throws IOException {
+    private static void introducirProds(BufferedReader reader) throws IOException { //Punto 3:
 
             System.out.println("Introduce el código del producto.");
 
@@ -101,7 +101,7 @@ public class Almacen {
             producto = new Producto(codigo,descripcion,peso);
 
     }
-    private static void visualizaProds(){
+    private static void visualizaProds(){ //Punto 3:
 
             int cod = producto.getCodigo();
 
@@ -112,7 +112,7 @@ public class Almacen {
             }
 
     }
-    private static void guardaProds(){
+    private static void guardaProds(){ //Punto 3:
 
         int cod = producto.getCodigo();
 
@@ -132,7 +132,7 @@ public class Almacen {
 
         System.out.println("Producto con el código "+producto.getCodigo()+" guardado.");
     }
-    private static void leeProds() throws IOException {
+    private static void leeProds() throws IOException { //Punto 3:
 
         try (BufferedReader reader = new BufferedReader(new FileReader("archivador.txt"))){
 

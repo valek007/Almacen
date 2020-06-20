@@ -4,7 +4,7 @@ public class Producto{
     private String decripcion;
     private float peso;
 
-    public Producto(int codigo, String decripcion, float peso) {
+    public Producto(int codigo, String decripcion, float peso) { //Punto 1:
         this.codigo = codigo;
         this.decripcion = decripcion;
         this.peso = peso;
