@@ -15,10 +15,12 @@ Realiza las siguientes acciones:
  */
 
 import java.io.*;
+import java.sql.SQLOutput;
+import java.util.ArrayList;
 
 public class Almacen {
 
-    public static Producto producto;
+    private static ArrayList<Producto> listaProductos = new ArrayList<>();
 
     public static final  String INTROMENU =
             "\n-------Menu----------------------\n"+
@@ -73,7 +75,7 @@ public class Almacen {
                         isStoped = true;
                         break;
                     default:
-                        System.out.println("¡Has introducido un número incorrecto!");
+                        System.out.println("Has escogido una opción incorrecta. Prueba de nuevo.");
                         isStoped = true;
                         break;
                 }
@@ -86,57 +88,85 @@ public class Almacen {
 
     private static void introducirProds(BufferedReader reader) throws IOException { //Punto 3:
 
-            System.out.println("Introduce el código del producto.");
+        int codigo;
+        String descripcion;
+        float peso;
 
-            int codigo = Integer.parseInt(reader.readLine());
+        System.out.println("Introduce el código del producto.");
 
-            System.out.println("Introduce la descripción del prooducto.");
+            try {
+               codigo  = Integer.parseInt(reader.readLine());
 
-            String descripcion = reader.readLine();
+                if(codigo==0||codigo<0) {
+                    System.out.println("El código no puede ser 0 o menor que 0.");
+                    return;
+                }
 
-            System.out.println("Introduce el peso del producto.");
+            }catch (NumberFormatException e){
+                System.out.println("No has introducido el codigo.");
+                return;
+            }
 
-            float peso = Float.parseFloat(reader.readLine());
+        System.out.println("Introduce la descripción del prooducto.");
 
-            producto = new Producto(codigo,descripcion,peso);
+                descripcion = reader.readLine();
 
+                if(descripcion.isEmpty()) descripcion = "Desconocido";
+
+        System.out.println("Introduce el peso del producto.");
+
+        try {
+            peso = Float.parseFloat(reader.readLine());
+
+        }catch (NumberFormatException e){
+
+            System.out.println("No has introducido una cantidad de peso.");
+            return;
+        }
+
+            listaProductos.add(new Producto(codigo, descripcion, peso));
     }
     private static void visualizaProds(){ //Punto 3:
 
-            int cod = producto.getCodigo();
+        if(!listaProductos.isEmpty()) {
 
-            if(cod!=0){
-                System.out.println("Código: "+producto.getCodigo()+"\nDescripción: "+producto.getDecripcion()+"\nPeso: "+producto.getPeso()+"kg\n");
-            }else{
-                System.out.println("El producto no existe.");
+            System.out.println("Todos los productos introducidos:\n");
+            for(Producto x: listaProductos){
+
+                    System.out.println("Código: "+x.getCodigo()+"\nDescripción: "+x.getDecripcion()+"\nPeso: "+x.getPeso()+"kg\n");
             }
+        }else{
+            System.out.println("No hay productos introducidos.");
+        }
 
     }
     private static void guardaProds(){ //Punto 3:
 
-        int cod = producto.getCodigo();
-
         try(BufferedWriter writer = new BufferedWriter(new FileWriter("archivador.txt",true))){
 
-            if(cod!=0) {
-                writer.write("Código: " + producto.getCodigo() + "\n");
-                writer.write("Descripción: " + producto.getDecripcion() + "\n");
-                writer.write("Peso: " + producto.getPeso() + "kg\n");
-                writer.write("\n");
+            if(!listaProductos.isEmpty()) {
+                for (Producto x : listaProductos) {
+                    writer.write("Código: " + x.getCodigo() + "\n");
+                    writer.write("Descripción: " + x.getDecripcion() + "\n");
+                    writer.write("Peso: " + x.getPeso() + "kg\n");
+                    writer.write("\n");
+                }
+                System.out.println("Productos guardados.");
+
             }else{
-                System.out.println("No hay nada por introducir");
+                System.out.println("No hay productos introducidos.");
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        System.out.println("Producto con el código "+producto.getCodigo()+" guardado.");
     }
     private static void leeProds() throws IOException { //Punto 3:
 
         try (BufferedReader reader = new BufferedReader(new FileReader("archivador.txt"))){
 
-            System.out.println("Todos los productos del Almacen:\n");
+            System.out.println("Todos los productos del Almacen:");
 
             while(true){
                 try {
